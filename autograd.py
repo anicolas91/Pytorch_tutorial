@@ -91,3 +91,9 @@ optimizer.zero_grad()
 # tldr: 
 #1. remember to set requires_grad to True to use backward
 #2. to optimize you need to reset gradients
+
+
+# to update weights without considering the gradient computation:
+# 1. x.requires_grad_(False)
+# 2. x.detach()
+# 3. with torch.no_grad() 
