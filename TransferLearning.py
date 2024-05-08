@@ -75,7 +75,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
     # loop across epochs (default is 25)
     for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch, num_epochs - 1))
+        print('Epoch {}/{}'.format(epoch+1, num_epochs))
         print('-' * 10)
 
         # Each epoch has a training and validation phase
@@ -136,6 +136,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     model.load_state_dict(best_model_wts)
     return model
 
+num_epochs = 4
 ## 1) FINETUNING ==============================================================
 # we are training the whole model again, but finetuning the weights 
 # a little bit with the new last layer
@@ -158,7 +159,7 @@ optimizer = optim.SGD(model.parameters(),lr=0.001) # stochastic gradient
 step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 
 # call the training function made above
-nodel = train_model(model,criterion,optimizer,num_epochs=20)
+model = train_model(model,criterion,optimizer,step_lr_scheduler,num_epochs)
 
 ## 2) FREEZING ==============================================================
 # freeze all layers in the beginning and only train new last layer
@@ -178,4 +179,4 @@ optimizer = optim.SGD(model.parameters(),lr=0.001) # stochastic gradient
 # set up scheduler, will update the learning rate
 step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 # call the training function made above
-nodel = train_model(model,criterion,optimizer,num_epochs=20)
+nodel = train_model(model,criterion,optimizer,step_lr_scheduler,num_epochs)
